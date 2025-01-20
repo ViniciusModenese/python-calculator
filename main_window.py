@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QLabel
+from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout
 from PySide6.QtGui import QIcon
 from variables import WINDOW_ICON_PATH
+import sys
 
 
 class MainWindow(QMainWindow):
@@ -13,11 +14,15 @@ class MainWindow(QMainWindow):
         WINDOW_ICON = QIcon(str(WINDOW_ICON_PATH))
         self.setWindowIcon(WINDOW_ICON)
 
+        # Setting AUMID
+        if sys.platform.startswith('win'):
+            import ctypes
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+                u'CompanyName.ProductName.SubProduct.VersionInformation')
+
+        # Layout
         self.vertical_layout = QVBoxLayout()
         self.central_widget.setLayout(self.vertical_layout)
-
-        self.test_text = QLabel('Test Text')
-        self.vertical_layout.addWidget(self.test_text)
 
         self.setCentralWidget(self.central_widget)
 
