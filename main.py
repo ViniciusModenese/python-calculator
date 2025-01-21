@@ -4,11 +4,13 @@ from main_window import MainWindow
 from display import Display
 from informations import Info
 from styles import setupTheme
+from buttons import ButtonsGrid
 
 if __name__ == '__main__':
     # Initialize app
     app = QApplication(sys.argv)
     setupTheme(app)
+
     window = MainWindow()
 
     # Informations
@@ -20,7 +22,14 @@ if __name__ == '__main__':
     display.setPlaceholderText('0')
     window.addWidgetToVLayout(display)
 
+    # Grid
+    buttonsgrid = ButtonsGrid()
+    window.addLayoutToVLayout(buttonsgrid)
+
+    # Buttons
+    buttonsgrid._make_grid()
+
     # Run and adjust app
-    window.adjustFixedSize(302, 510)
+    # window.adjustFixedSize(302, 510)
     window.show()
     app.exec()
