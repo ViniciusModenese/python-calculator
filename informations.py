@@ -6,8 +6,8 @@ from variables import MIN_FONT_SIZE
 class Info(QLabel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.cfg_style()
+        self.cfgStyle()
 
-    def cfg_style(self):
+    def cfgStyle(self):
         self.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.setStyleSheet(f'font-size: {MIN_FONT_SIZE}px')

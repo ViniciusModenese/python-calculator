@@ -6,9 +6,9 @@ from PySide6.QtCore import Qt
 class Display(QLineEdit):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.cfg_style()
+        self.cfgStyle()
 
-    def cfg_style(self):
+    def cfgStyle(self):
         self.setStyleSheet(f'font-size: {MAX_FONT_SIZE}px')
         self.setMinimumHeight(MAX_FONT_SIZE * 2)
         self.setAlignment(Qt.AlignmentFlag.AlignRight)
