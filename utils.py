@@ -13,7 +13,7 @@ def isValidNumber(string: str):
         float(string)
         valid = True
     except ValueError:
-        print('error')
+        valid = False
     return valid
 
 

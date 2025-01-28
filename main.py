@@ -14,7 +14,7 @@ if __name__ == '__main__':
     window = MainWindow()
 
     # Informations
-    info = Info('Informations')
+    info = Info('')
     window.addWidgetToVLayout(info)
 
     # Display
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     window.addWidgetToVLayout(display)
 
     # Grid
-    buttonsgrid = ButtonsGrid(display)
+    buttonsgrid = ButtonsGrid(display, info)
     window.addLayoutToVLayout(buttonsgrid)
 
     # Buttons
