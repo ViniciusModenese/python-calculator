@@ -72,7 +72,7 @@ class ButtonsGrid(QGridLayout):
         if text == 'C':
             self._connectButtonClicked(button, self._clear)
 
-        if text in '+-/*':
+        if text in '+-/*^':
             self._connectButtonClicked(
                 button,
                 self._makeSlot(self._operatorClicked, button)
@@ -80,6 +80,9 @@ class ButtonsGrid(QGridLayout):
 
         if text == '=':
             self._connectButtonClicked(button, self._equal)
+
+        if text == '◀':
+            self._connectButtonClicked(button, self.display.backspace)
 
     def _makeSlot(self, func, *args, **kwargs):
         @Slot(bool)
@@ -95,6 +98,10 @@ class ButtonsGrid(QGridLayout):
         self.display.insert(button_text)
 
     def _clear(self):
+        self._leftnum = None
+        self._rightnum = None
+        self._mathop = None
+        self.equation = ''
         self.display.clear()
         self.info.clear()
 
@@ -124,15 +131,23 @@ class ButtonsGrid(QGridLayout):
 
         self._rightnum = float(display_text)
         self.equation = f'{self._leftnum} {self._mathop} {self._rightnum}'
-        result = 0.0
+        result = 'error'
 
         try:
-            result = eval(self.equation)
+            if '^' in self.equation:
+                result = eval(self.equation.replace('^', '**'))
+            else:
+                result = eval(self.equation)
             self.display.setText(str(result))
         except ZeroDivisionError:
             print('Zero Division Error')
+        except OverflowError:
+            print('Result too large')
 
         self.display.clear()
         self.info.setText(f'{self.equation} = {result}')
         self._leftnum = result
         self._rightnum = None
+
+        if result == 'error':
+            self._leftnum = None
