@@ -1,35 +1,38 @@
-from PySide6.QtWidgets import QApplication
 import sys
-from main_window import MainWindow
-from display import Display
-from informations import Info
-from styles import setupTheme
+
 from buttons import ButtonsGrid
+from display import Display
+from info import Info
+from main_window import MainWindow
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QApplication
+from styles import setupTheme
+from variables import WINDOW_ICON_PATH
 
 if __name__ == '__main__':
     # Initialize app
     app = QApplication(sys.argv)
     setupTheme(app)
-
     window = MainWindow()
 
-    # Informations
-    info = Info('')
+    # Set Icon
+    icon = QIcon(str(WINDOW_ICON_PATH))
+    window.setWindowIcon(icon)
+    app.setWindowIcon(icon)
+
+    # Info
+    info = Info('Sua conta')
     window.addWidgetToVLayout(info)
 
     # Display
     display = Display()
-    display.setPlaceholderText('0')
     window.addWidgetToVLayout(display)
 
     # Grid
-    buttonsgrid = ButtonsGrid(display, info)
-    window.addLayoutToVLayout(buttonsgrid)
+    buttonsGrid = ButtonsGrid(display, info, window)
+    window.vLayout.addLayout(buttonsGrid)
 
-    # Buttons
-    buttonsgrid._makeGrid()
-
-    # Run and adjust app
-    # window.adjustFixedSize(302, 510)
+    # Run and adjust app size
+    window.adjustFixedSize()
     window.show()
     app.exec()
