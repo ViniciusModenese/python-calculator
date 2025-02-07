@@ -172,9 +172,9 @@ class ButtonsGrid(QGridLayout):
 
         try:
             if '^' in self.equation and isinstance(self._left, float):
-                result = math.pow(self._left, self._right)
+                result = round(math.pow(self._left, self._right), 2)
             else:
-                result = eval(self.equation)
+                result = round(eval(self.equation), 2)
         except ZeroDivisionError:
             self._showError('Divisão por zero.')
         except OverflowError:
